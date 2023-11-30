@@ -7,4 +7,5 @@ const db = mysql.createConnection({
     database    : "walktotalk_travel"
 })
 
+
 module.exports = db
