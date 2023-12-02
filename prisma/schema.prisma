@@ -20,13 +20,13 @@ model Products {
   id_products Int           @id @default(autoincrement())
   category    Category      @relation(fields: [id_category], references: [id_category])
   id_category Int
-  title       String        @db.VarChar(50)
+  title       String        @db.VarChar(100)
   price       Int
   location    String        @db.VarChar(50)
-  description String        @db.VarChar(500)
-  benefits    String        @db.VarChar(2000)
-  thumbnail   String        @db.VarChar(300)
-  images      String        @db.VarChar(2000)
+  description String        @db.VarChar(200)
+  benefits    Json //@db.VarChar(100)
+  thumbnail   String        @db.VarChar(100)
+  images      Json
   transaction Transaction[]
 }
 
