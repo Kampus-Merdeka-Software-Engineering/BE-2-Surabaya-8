@@ -5,7 +5,8 @@ const app = express();
 
 const productsRoutes = require('./routes/productsRoutes')
 
-// app.use(productsRoutes)
+app.use(productsRoutes)
+
 // app.get('/category', (req, res) =>{
 //     res.json(category);
 // } )
