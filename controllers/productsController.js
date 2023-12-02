@@ -1,13 +1,8 @@
 const productsService = require('../services/productsService');
 
 async function getAllProducts(req, res) {
- res.json({
-  books: [{
-    title: 'mantab dong js'
-}]
-});
-  // const products = await productsService.getAllProducts();
-  // res.json(products)
+  const products = await productsService.getAllProducts();
+  res.json(products)
 };
 
 async function getProductById(req, res) {
