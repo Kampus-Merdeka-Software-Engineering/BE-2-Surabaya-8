@@ -31,21 +31,6 @@ app.get('/customers', (req, res) => {
     })
 })
 
-app.get('/hello', (req, res) => {
-    console.log({urlParam: req.query })
-    res.send('Hello Word lalalal')
-})
-
-app.post('/login', (req, res) => {
-    console.log({ requestFromOutside: req.body })
-    res.send('login berhasil')
-})
-
-app.put('/username', (req, res) => {
-    console.log({updateData: req.body})
-    res.send('update berhasil')
-})
-
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`)
+    console.log(`Listening on port http://localhost:${port}`)
 })
