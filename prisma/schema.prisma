@@ -24,9 +24,9 @@ model Products {
   price       Int
   location    String        @db.VarChar(50)
   description String        @db.VarChar(500)
-  benefits    Json
+  benefits    String        @db.VarChar(2000)
   thumbnail   String        @db.VarChar(300)
-  images      Json
+  images      String        @db.VarChar(2000)
   transaction Transaction[]
 }
 
@@ -35,7 +35,7 @@ model Customers {
   nama         String        @db.VarChar(50)
   email        String        @db.VarChar(50)
   no_tlpn      String        @db.VarChar(15)
-  pesan        Json
+  pesan        String        @db.VarChar(2000)
   transaction  Transaction[]
 }
 
