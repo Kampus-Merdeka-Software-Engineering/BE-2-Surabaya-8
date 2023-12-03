@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:gaaHCcaAEggh1hdBgDE1HAebCEC-CeGf@monorail.proxy.rlwy.net:23556/railway"
 }
 
 model Category {
@@ -24,7 +24,7 @@ model Products {
   price       Int
   location    String        @db.VarChar(50)
   description String        @db.VarChar(200)
-  benefits    Json //@db.VarChar(100)
+  benefits    Json
   thumbnail   String        @db.VarChar(100)
   images      Json
   transaction Transaction[]
@@ -32,23 +32,20 @@ model Products {
 
 model Customers {
   id_customers Int           @id @default(autoincrement())
-  nama         String        @db.VarChar(50)
+  username     String        @db.VarChar(50)
   email        String        @db.VarChar(50)
-  no_tlpn      String        @db.VarChar(15)
-  pesan        String        @db.VarChar(2000)
+  password     String        @db.VarChar(50)
+  phone        String        @db.VarChar(15)
+  message      String        @db.VarChar(2000)
   transaction  Transaction[]
 }
 
 model Transaction {
-  id_transaction   Int       @id @default(autoincrement())
-  customers        Customers @relation(fields: [id_customers], references: [id_customers])
-  id_customers     Int
-  products         Products  @relation(fields: [id_products], references: [id_products])
-  id_products      Int
-  date_transaction DateTime
-  customer_count   Int
-  price            Int
-  total_price      Int
+  id_transaction Int       @id @default(autoincrement())
+  customers      Customers @relation(fields: [id_customers], references: [id_customers])
+  id_customers   Int
+  products       Products  @relation(fields: [id_products], references: [id_products])
+  id_products    Int
 }
 
 model Admin {

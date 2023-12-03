@@ -14,11 +14,47 @@ app.get('/', (req, res) => {
     response(200, data, "Request successful", res)
 })
 
+//GET ALL PRODUCTS
+app.get('/products', async (req, res) => {
+  try {
+    // Ambil semua produk dari database
+    const products = await prisma.products.findMany();
+
+    res.status(200).json({
+      message: 'Products retrieved successfully',
+      products,
+    });
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
+// GET ALL CUSTOMERS
+app.get('/customers', async (req, res) => {
+  try {
+    const customers = await prisma.customers.findMany();
+
+    res.status(200).json({
+      message: 'Customers retrieved successfully',
+      customers,
+    });
+  } catch (error) {
+    console.error('Error retrieving customers:', error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+//POST UNTUK PRODUCT
 app.post('/products', async (req, res) => {
     try {
       const { id_category, title, price, location, description, benefits, thumbnail, images } = req.body;
   
-      // Membuat produk baru dengan beberapa URL gambar
       const product = await prisma.products.create({
         data: {
           id_category,
