@@ -24,9 +24,9 @@ model Products {
   title       String        @db.VarChar(100)
   price       Int
   location    String        @db.VarChar(50)
-  description String        @db.VarChar(200)
+  description String        @db.VarChar(500)
   benefits    Json
-  thumbnail   String        @db.VarChar(100)
+  thumbnail   String        @db.VarChar(500)
   images      Json
   transaction Transaction[]
 }
