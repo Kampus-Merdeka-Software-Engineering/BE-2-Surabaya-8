@@ -33,6 +33,30 @@ app.get('/products', async (req, res) => {
   }
 });
 
+//GET PRODUCT BY CATEGORY
+app.get('/products/category/:id_category', async (req, res) => {
+  try {
+    const idCategory = parseInt(req.params.id_category, 10);
+
+    const products = await prisma.products.findMany({
+      where: {
+        id_category: idCategory,
+      },
+    });
+
+    res.status(200).json({
+      message: 'Products retrieved successfully',
+      products,
+    });
+  } catch (error) {
+    console.error('Error retrieving products by category:', error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
 // GET ALL CUSTOMERS
 app.get('/customers', async (req, res) => {
   try {
@@ -92,6 +116,8 @@ app.post('/customers', async (req, res) => {
         username,
         email,
         password,
+        phone:"null",
+        message:"null",
       },
     });
 
