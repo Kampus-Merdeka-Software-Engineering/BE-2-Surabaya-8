@@ -50,6 +50,7 @@ app.get('/customers', async (req, res) => {
     });
   }
 });
+
 //POST UNTUK PRODUCT
 app.post('/products', async (req, res) => {
     try {
@@ -81,15 +82,40 @@ app.post('/products', async (req, res) => {
     } 
   });
 
+// POST UNTUK CUSTOMERS
+app.post('/customers', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
 
-const productsRoutes = require('./routes/productsRoutes')
+    const customer = await prisma.customers.create({
+      data: {
+        username,
+        email,
+        password,
+      },
+    });
 
-app.use(productsRoutes)
+    res.status(201).json({
+      message: 'Customer created successfully',
+      customer,
+    });
+  } catch (error) {
+    console.error('Error creating customer:', error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-  });
+// const productsRoutes = require('./routes/productsRoutes')
+
+// app.use(productsRoutes)
+
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something went wrong!');
+//   });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
