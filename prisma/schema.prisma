@@ -26,7 +26,7 @@ model Products {
   location    String        @db.VarChar(50)
   description String        @db.VarChar(500)
   benefits    Json
-  thumbnail   String        @db.VarChar(500)
+  thumbnail   String        @db.VarChar(1000)
   images      Json
   transaction Transaction[]
 }
