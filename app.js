@@ -78,27 +78,6 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-//Register a.k.a sign up
-app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-
-  try {
-    await prisma.customers.create({
-      data: {
-        username,
-        email,
-        password,
-        phone: "null",
-        message: "null"
-      }
-    });
-
-    res.redirect('/login?message=Registration successful.');
-  } catch (error) {
-    res.redirect('/login?message=Registration failed.');
-  }
-});
-
 // PANGGIL RESPONSE
 const response = require('./response.js')
 app.get('/', (req, res) => {
@@ -204,7 +183,6 @@ app.post('/products', async (req, res) => {
 app.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
- // Hash password
     const customer = await prisma.customers.create({
       data: {
         username,
@@ -229,10 +207,11 @@ app.post('/register', async (req, res) => {
 });
 
 // LOGIN
-app.post('/login', passport.authenticate('local'), (req, res) => {
+// app.post('/login', passport.authenticate('local'), (req, res) => {
   // Jika autentikasi berhasil, pengguna akan diarahkan ke sini
-  res.status(200).json({ message: 'Login successful' });
-});
+//   res.status(200).json({ message: 'Login successful' });
+// });
+
 // const productsRoutes = require('./routes/productsRoutes')
 
 // app.use(productsRoutes)
