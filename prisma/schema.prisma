@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
@@ -19,7 +16,6 @@ model Category {
 
 model Products {
   id_products Int           @id @default(autoincrement())
-  category    Category      @relation(fields: [id_category], references: [id_category])
   id_category Int
   title       String        @db.VarChar(100)
   price       Int
@@ -28,25 +24,31 @@ model Products {
   benefits    Json
   thumbnail   String        @db.VarChar(1000)
   images      Json
+  category    Category      @relation(fields: [id_category], references: [id_category])
   transaction Transaction[]
+
+  @@index([id_category], map: "Products_id_category_fkey")
 }
 
 model Customers {
   id_customers Int           @id @default(autoincrement())
-  username     String        @db.VarChar(50)
   email        String        @db.VarChar(50)
+  message      String        @db.VarChar(2000)
   password     String        @db.VarChar(50)
   phone        String        @db.VarChar(15)
-  message      String        @db.VarChar(2000)
+  username     String        @unique @db.VarChar(50)
   transaction  Transaction[]
 }
 
 model Transaction {
   id_transaction Int       @id @default(autoincrement())
-  customers      Customers @relation(fields: [id_customers], references: [id_customers])
   id_customers   Int
-  products       Products  @relation(fields: [id_products], references: [id_products])
   id_products    Int
+  customers      Customers @relation(fields: [id_customers], references: [id_customers])
+  products       Products  @relation(fields: [id_products], references: [id_products])
+
+  @@index([id_customers], map: "Transaction_id_customers_fkey")
+  @@index([id_products], map: "Transaction_id_products_fkey")
 }
 
 model Admin {

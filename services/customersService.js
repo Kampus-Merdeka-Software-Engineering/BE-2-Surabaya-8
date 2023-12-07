@@ -1,50 +1,43 @@
 const prisma = require('../config/prisma');
 
+    // Ambil semua data customer dari database
 async function getAllCustomers() {
   try {
-    // Ambil semua customer dari database
     const customers = await prisma.customers.findMany();
 
-    res.status(200).json({
-      message: 'Customers retrieved successfully',
-      products,
-    });
+    return {
+      message: 'Custommers retrieved successfully',
+      customers,
+    };
   } catch (error) {
     console.error('Error retrieving customers:', error);
-    res.status(500).json({
+    throw {
+      status: 500,
       message: 'Internal Server Error',
       error: error.message,
-    });
+    };
   }
-};
+}
 
-async function createCustomers() {
-    try {
-        const { username, email, password } = req.body;
-    
-        const customer = await prisma.customers.create({
-          data: {
-            username,
-            email,
-            password,
-            phone:"null",
-            message:"null",
-          },
-        });
-    
-        res.status(201).json({
-          message: 'Customer created successfully',
-          customer,
-        });
-      } catch (error) {
-        console.error('Error creating customer:', error);
-        res.status(500).json({
-          message: 'Internal Server Error',
-          error: error.message,
-        });
-      }
-} 
-
+// membuat data baru customers
+async function createCustomers(customerData) {
+  try {
+    const customer = await prisma.customers.create({
+      data: customerData,
+    });
+    return {
+      message: 'Customer created successfully',
+      customer,
+    };
+  } catch (error) {
+    console.error('Error creating Customer:', error);
+    throw {
+      status: 500,
+      message: 'Internal Server Error',
+      error: error.message,
+    };
+  }
+}
 
 module.exports = {
   getAllCustomers,

@@ -20,24 +20,21 @@ app.listen(PORT, () => {
     console.log(`Click this link to check It : http://localhost:${PORT}`)
 })
 
-//GET ALL PRODUCTS
-// app.get('/products', async (req, res) => {
-//   try {
-//     // Ambil semua produk dari database
-//     const products = await prisma.products.findMany();
 
-//     res.status(200).json({
-//       message: 'Products retrieved successfully',
-//       products,
-//     });
-//   } catch (error) {
-//     console.error('Error retrieving products:', error);
-//     res.status(500).json({
-//       message: 'Internal Server Error',
-//       error: error.message,
-//     });
-//   }
-// });
+// //GET ALL PRODUCTS
+// app.get('/products', async (req, res) => {
+//     try {
+//       const products = await prisma.products.findMany();
+//       res.json(products);
+//     } catch (error) {
+//       console.error('Error retrieving products:', error);
+//       res.status(500).json({
+//         message: 'Internal Server Error',
+//         error: error.message,
+//       });
+//     }
+//   });
+  
 
 //GET PRODUCT BY CATEGORY
 // app.get('/products/category/:id_category', async (req, res) => {
@@ -81,7 +78,7 @@ app.listen(PORT, () => {
 //   }
 // });
 
-//POST UNTUK PRODUCT
+// POST UNTUK PRODUCT
 // app.post('/products', async (req, res) => {
 //     try {
 //       const { id_category, title, price, location, description, benefits, thumbnail, images } = req.body;
