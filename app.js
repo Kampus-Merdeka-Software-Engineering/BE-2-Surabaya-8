@@ -106,6 +106,26 @@ app.get('/products', async (req, res) => {
   }
 });
 
+//GET ALL TRANSACTIONS
+app.get('/transactions', async (req, res) => {
+  try {
+    // Ambil semua transaksi dari database
+    const transactions = await prisma.transaction.findMany();
+
+    res.status(200).json({
+      message: 'Transactions retrieved successfully',
+      transactions,
+    });
+  } catch (error) {
+    console.error('Error retrieving transactions:', error);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
+
 //GET PRODUCT BY CATEGORY
 app.get('/products/category/:id_category', async (req, res) => {
   try {
