@@ -243,5 +243,5 @@ app.post('/register', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Click this link to check It : http://localhost:${PORT}`)
+    console.log(`Click this link to check : http://localhost:${PORT}`)
 })
