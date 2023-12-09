@@ -41,11 +41,16 @@ model Customers {
 }
 
 model Transaction {
-  id_transaction Int       @id @default(autoincrement())
-  id_customers   Int
-  id_products    Int
-  customers      Customers @relation(fields: [id_customers], references: [id_customers])
-  products       Products  @relation(fields: [id_products], references: [id_products])
+  id_transaction   Int       @id @default(autoincrement())
+  id_customers     Int
+  id_products      Int
+  transaction_code String    @db.Text
+  username         String    @db.Text
+  order_date       DateTime  @db.Date
+  total_price      Int
+  product_title    String?   @db.Text
+  customers        Customers @relation(fields: [id_customers], references: [id_customers])
+  products         Products  @relation(fields: [id_products], references: [id_products])
 
   @@index([id_customers], map: "Transaction_id_customers_fkey")
   @@index([id_products], map: "Transaction_id_products_fkey")

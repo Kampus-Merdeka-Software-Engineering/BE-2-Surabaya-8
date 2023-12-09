@@ -8,12 +8,14 @@ const app = express();
 
 const productsRoutes = require('./routes/productsRoutes');
 const customersRoutes = require('./routes/customersRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
 
 app.use('/products', productsRoutes);
 app.use('/customers', customersRoutes);
+app.use('/transaction', transactionRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
