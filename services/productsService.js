@@ -1,35 +1,67 @@
 const prisma = require('../config/prisma');
 
+    // Ambil semua produk dari database
 async function getAllProducts() {
-    try {
-      const products = await prisma.products.findMany();
+  try {
+    const products = await prisma.products.findMany();
+    return {
+      message: 'Products retrieved successfully',
+      products,
+    };
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+    throw {
+      status: 500,
+      message: 'Internal Server Error',
+      error: error.message,
+    };
+  }
+}
 
-      return products;
-    } catch (err) {
-      throw err;
-    }
-};
+// ambil data produk sesuai kategori
+async function getProductsByIdCategory(id_category) {
+  try {
+    const products = await prisma.products.findMany({
+      where: {
+        id_category: parseInt(id_category, 10),
+      },
+    });
+    return {
+      message: 'Products retrieved successfully',
+      products,
+    };
+  } catch (error) {
+    console.error('Error retrieving products by category:', error);
+    throw {
+      status: 500,
+      message: 'Internal Server Error',
+      error: error.message,
+    };
+  }
+}
 
-// async function getProductById() {
-//     try {
-//         const productId = parseInt(req.params.id);
-      
-//       return products;
-//     } catch (err) {
-//       throw err;
-//     }
-// };
-
-
-// async function createProduct(product){
-//     try {
-//         return await prisma.product.create(product);
-//       } catch (err) {
-//         throw err;
-//       }
-// }
+// membuat data baru untuk produk
+async function createProducts(productData) {
+  try {
+    const product = await prisma.products.create({
+      data: productData,
+    });
+    return {
+      message: 'Product created successfully',
+      product,
+    };
+  } catch (error) {
+    console.error('Error creating product:', error);
+    throw {
+      status: 500,
+      message: 'Internal Server Error',
+      error: error.message,
+    };
+  }
+}
 
 module.exports = {
-    getAllProducts
-    // ,createProduct
+  getAllProducts,
+  getProductsByIdCategory,
+  createProducts,
 };
