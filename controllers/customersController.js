@@ -20,33 +20,34 @@ async function createCustomers(req, res) {
 passport.use(new LocalStrategy(
   async (username, password, done) => {
     try {
-      // Menggunakan `findUnique` dengan `where` yang sesuai
-      const user = await prisma.customers.findUnique({
+      const user = await prisma.customers.findMany({
         where: {
-          username: username,
-        },
+          username: username
+        }
       });
-
 
       console.log('Input Password:', password);
       console.log('User:', user);
 
-      // verifikasi kata sandi dan panggil callback done
-      // berdasarkan keberhasilan atau kegagalan otentikasi
       if (!user) {
-        return done(null, false, { message: 'Username tidak ditemukan' });
+        console.log('Incorrect username.');
+        return done(null, false, { message: 'Incorrect username.' });
       }
 
-      // Lakukan verifikasi kata sandi di sini (sesuai dengan kebutuhan Anda)
+      const isPasswordValid = password === user.password;
 
-      if (user.password !== password) {
-        return done(null, false, { message: 'Password salah' });
+      console.log('Is password valid:', isPasswordValid);
+
+      if (!isPasswordValid) {
+        console.log('Incorrect password.');
+        return done(null, false, { message: 'Incorrect password.' });
       }
 
-      // Jika berhasil, kembalikan user ke dalam passport
-      return done(null, user);
-    } catch (error) {
-      return done(error);
+      console.log('Login successful.');
+      done(null, { message: 'Login successful.', username: user.username });
+    } catch (err) {
+      console.error('Error in Passport LocalStrategy:', err);
+      return done(err);
     }
   }
 ));
