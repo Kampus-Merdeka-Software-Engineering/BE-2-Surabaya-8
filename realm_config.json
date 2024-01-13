@@ -1,0 +1,7 @@
+{
+    "app_id": "application-0-upwnq",
+    "config_version": 20210101,
+    "name": "Application-0",
+    "provider_region": "gcp-asia-south1",
+    "deployment_model": "LOCAL"
+}
